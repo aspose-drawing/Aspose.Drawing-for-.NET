@@ -2,11 +2,11 @@
 
 [Aspose.Drawing for .NET](https://products.aspose.com/drawing/net) is a .NET graphics API that provides the capability of 2D drawings identical to GDI+ in your .NET applications. The drawing engine supports rendering vector graphics (such as lines, curves, and figures) and text (in a variety of fonts, sizes, and styles) onto raster images in all commonly used graphics file formats. The project is based on managed .NET core and does not have dependencies on native code and libraries, with the rendering algorithms working the same way on all supported platforms.
 
-This repository contains [Examples](Examples), Plugins and Showcases for [Aspose.3D for .NET](https://products.aspose.com/Drawing/net) to help you learn and write your own applications.
+This repository contains [Examples](Examples), Plugins and Showcases for [Aspose.Drawing for .NET](https://products.aspose.com/drawing/net) to help you learn and write your own applications.
 
 <p align="center">
 
-  <a title="Download complete Aspose.Drawing for .NET source code" href="https://github.com/aspose-Drawing/Aspose.Drawing-for-.NET/archive/master.zip">
+  <a title="Download complete Aspose.Drawing for .NET source code" href="https://github.com/aspose-drawing/Aspose.Drawing-for-.NET/archive/master.zip">
 	<img src="http://i.imgur.com/hwNhrGZ.png" />
   </a>
 </p>
@@ -32,8 +32,8 @@ Please find more details for how to run the examples [here](https://docs.aspose.
 ## Resources
 
 + **Website:** [www.aspose.com](https://www.aspose.com)
-+ **Product Home:** [Aspose.Drawing for .NET](https://products.aspose.com/Drawing/net)
++ **Product Home:** [Aspose.Drawing for .NET](https://products.aspose.com/drawing/net)
 + **Download:** [Download Aspose.Drawing for .NET](https://www.nuget.org/packages/Aspose.Drawing)
-+ **Documentation:** [Aspose.Drawing for .NET Documentation](https://docs.aspose.com//display/Drawingnet/Home)
-+ **Forum:** [Aspose.Drawing for .NET Forum](https://forum.aspose.com/c/Drawing)
-+ **Blog:** [Aspose.Drawing for .NET Blog](https://blog.aspose.com/category/aspose-products/aspose-Drawing-product-family/)
++ **Documentation:** [Aspose.Drawing for .NET Documentation](https://docs.aspose.com//display/drawingnet/Home)
++ **Forum:** [Aspose.Drawing for .NET Forum](https://forum.aspose.com/c/drawing)
++ **Blog:** [Aspose.Drawing for .NET Blog](https://blog.aspose.com/category/drawing/)
