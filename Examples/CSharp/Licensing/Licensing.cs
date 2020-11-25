@@ -12,8 +12,6 @@ namespace Aspose.Drawing.Examples.CSharp.Licensing
         static void LoadLicenseFromFile()
         {
             //ExStart: LoadLicenseFromFile
-            // The path to the documents directory.
-            string dataDir = RunExamples.GetDataDir();
             // Initialize license object
             Aspose.Drawing.License license = new Aspose.Drawing.License();
             // Set license
@@ -25,8 +23,6 @@ namespace Aspose.Drawing.Examples.CSharp.Licensing
         static void LoadLicenseFromStream()
         {
             //ExStart: LoadLicenseFromStream
-            // The path to the documents directory.
-            string dataDir = RunExamples.GetDataDir();
             // Initialize license object
             Aspose.Drawing.License license = new Aspose.Drawing.License();
             // Load license in FileStream
@@ -35,6 +31,26 @@ namespace Aspose.Drawing.Examples.CSharp.Licensing
             license.SetLicense(myStream);
             Console.WriteLine("License set successfully.");
             //ExEnd: LoadLicenseFromStream
+        }
+        
+        static void SetMeteredLicense()
+        {
+            //ExStart: SetMeteredLicense
+            // Initialize metered object
+            Aspose.Drawing.Metered metered = new Aspose.Drawing.Metered();
+            // Set metered public and private keys
+            metered.SetMeteredKey("*****", "*****");
+            
+            // DO PROCESSING
+            
+            // Get metered data amount and/or credits
+            decimal amount = Aspose.Drawing.Metered.GetConsumptionQuantity();
+            decimal credits = Aspose.Drawing.Metered.GetConsumptionCredit();
+    
+            // Display information
+            Console.WriteLine("Amount Consumed : " + amount.ToString());
+            Console.WriteLine("Credits Consumed : " + credits.ToString());
+            //ExEnd: SetMeteredLicense
         }
     }
 }
