@@ -47,4 +47,4 @@ TransformPath(graphics, originalRentangle, (matrix) => matrix.Scale(0.3f, 0.3f))
 bitmap.Save("output.png");
 ```
 
-[Home](https://www.aspose.com/) | [Product Page](https://products.aspose.com/drawing/net) | [Docs](https://docs.aspose.com/drawing/net/) | [API Reference](https://apireference.aspose.com/drawing/net) | [Examples](https://github.com/aspose-drawing/Aspose.Drawing-for-.NET/tree/master/Examples) | [Blog](https://blog.aspose.com/category/drawing/) | [Free Support](https://forum.aspose.com/c/drawing) | [Temporary License](https://purchase.aspose.com/temporary-license)
+[Home](https://www.aspose.com/) | [Product Page](https://products.aspose.com/drawing/net) | [Docs](https://docs.aspose.com/drawing/net/) | [API Reference](https://apireference.aspose.com/drawing/net) | [Examples](https://github.com/aspose-drawing/Aspose.Drawing-for-.NET/tree/master/Examples) | [Blog](https://blog.aspose.com/category/drawing/) | [Search](https://search.aspose.com/) | [Free Support](https://forum.aspose.com/c/drawing) | [Temporary License](https://purchase.aspose.com/temporary-license)
