@@ -11,6 +11,10 @@ namespace Aspose.Drawing.Examples.CSharp
             // Uncomment if you have a license:
             // LoadLicenseFromFile();
 
+            UseCases.TextOnImage.Run();
+			UseCases.PhotoFrame.Run();
+			UseCases.MakeCallOut.Run();
+
             LinesCurvesShapes.DrawLines.Run();
             LinesCurvesShapes.DrawRectangle.Run();
             LinesCurvesShapes.DrawEllipse.Run();
@@ -74,10 +78,10 @@ namespace Aspose.Drawing.Examples.CSharp
 
         private static void LoadLicenseFromFile()
         {
-            // Initialize license object
-            Aspose.Drawing.License license = new Aspose.Drawing.License();
+			// Initialize license object
+			System.Drawing.AsposeDrawing.License license = new System.Drawing.AsposeDrawing.License();
             // Set license
-            license.SetLicense("Aspose.Drawing.lic");
+            license.SetLicense("Aspose.Drawing.lic ");
         }
     }
 }
