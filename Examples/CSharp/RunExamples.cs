@@ -8,8 +8,11 @@ namespace Aspose.Drawing.Examples.CSharp
         {
             //ConvertImage.Run();
 
-            // Uncomment if you have a license:
-            // LoadLicenseFromFile();
+            // Use a path to license file as a parameter if you have Aspose.Drawing license:
+            if(args.Length>0 && File.Exists(args[0]))
+            {
+				LoadLicenseFromFile(args[0]);
+			}            
 
             UseCases.TextOnImage.Run();
 			UseCases.PhotoFrame.Run();
@@ -76,12 +79,12 @@ namespace Aspose.Drawing.Examples.CSharp
             return Path.Combine(startDirectory, "Data\\");
         }
 
-        private static void LoadLicenseFromFile()
+        private static void LoadLicenseFromFile(string licensePath)
         {
 			// Initialize license object
 			System.Drawing.AsposeDrawing.License license = new System.Drawing.AsposeDrawing.License();
             // Set license
-            license.SetLicense("Aspose.Drawing.lic ");
+            license.SetLicense(licensePath);
         }
     }
 }

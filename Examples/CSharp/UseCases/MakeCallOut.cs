@@ -30,7 +30,7 @@ namespace Aspose.Drawing.Examples.CSharp.UseCases
 
 			void DrawCallOut(Graphics graphic, PointF startAnchor, PointF endAnchor, int value, string unit)
 			{
-				Pen pen = new Pen(Color.LightGray, 1);
+				Pen pen = new Pen(Color.DarkGray, 1);
 
 				Font font = new Font("Arial", 10, FontStyle.Bold);
 
@@ -55,7 +55,7 @@ namespace Aspose.Drawing.Examples.CSharp.UseCases
 				graphic.DrawEllipse(pen, new Rectangle((int)textAnchorX + spaceSize, (int)(textAnchorY - textSize.Height) + spaceSize, 10, 10));
 				graphic.DrawLine(pen, (int)textAnchorX + 1, (int)textAnchorY - 1, (int)textAnchorX + diameterSymbolSize + 2, (int)textAnchorY - diameterSymbolSize - 2);
 
-				SolidBrush brush = new SolidBrush(Color.LightGray);
+				SolidBrush brush = new SolidBrush(Color.DarkGray);
 
 				graphic.DrawString(outputValue, font, brush, (int)textAnchorX + diameterSymbolSize + spaceSize, (int)(textAnchorY - textSize.Height));
 			}
