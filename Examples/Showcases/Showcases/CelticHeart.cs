@@ -8,26 +8,25 @@ namespace Aspose.Drawing.Showcases
     internal class CelticHeart
     {
         private static readonly bool makeVideo = false;
-        private static Pen penBorder = new Pen(Color.White, 48 + 4 * 2);
-        private static Pen penWide = new Pen(Color.Red, 48 + 4 * 2 + 8);
-        private static Pen pen1 = new Pen(Color.FromArgb(255, 60, 60, 90), 48);
-        private static Font font = new Font("Segoe UI Historic", 28, FontStyle.Regular);
+        private static readonly float ribbonInnerWidth = 48;
+        private static readonly float ribbonStroke = 4;
+        private static Pen penInner = new Pen(Color.FromArgb(255, 60, 60, 90), ribbonInnerWidth);
+        private static Pen penBorder = new Pen(Color.White, ribbonInnerWidth + ribbonStroke * 2);
+        private static Pen penWide = new Pen(Color.Red, ribbonInnerWidth + ribbonStroke * 2 + 8);
+        private static float signWidth = 32;
+        private static float emSize = 32;
+        private static FontFamily fontFamily = new FontFamily("Segoe UI Historic");
+        private static Font font = new Font(fontFamily, emSize);
         private static Brush fontBrush = new SolidBrush(Color.White);
         private static string text = "ᛦᛨᛩᛪ᛭ᛮᛯᛰᚠᛅᛆᛇᛈᛉᛊᛋᛏᛐᛒᛓᛗᛘᛚᛝᛞᛟᛠᛡᛢᛣᛥᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚳᚴᚷᚸᚹᚺᚻᚼᚾᚿᛀ";
-        private static float signWidth = 32;
         private static int k = 60; // frames per change a sign to next one
         private static int frameNumber = 0;
         private static int frameLimit = 934;
         private static string rootDirectory = Path.Combine(RunShowcases.GetDataDir(), "CelticHeart");
         private static string outputDirectory = Path.Combine(rootDirectory, "out");
         private static string inputDirectory = Path.Combine(rootDirectory, "RooftopClouds_out");
-        private static Color bgColor = Color.FromArgb(0, 255, 255, 255);
-        private static Font font2 = new Font("Consolas", 10, FontStyle.Regular);
-        private static int count = 0;
+        private static Color bgColor = Color.Transparent;
         private static Random random = new Random(0);
-        private static StringFormat strformat = new StringFormat();
-        private static FontFamily fontFamily = new FontFamily("Segoe UI Historic");
-        private static float emSize = 32.0f;
 
         public static void Run()
         {
@@ -219,7 +218,7 @@ namespace Aspose.Drawing.Showcases
         private static void DrawRibbon(Ribbon ribbon, Graphics g, int i)
         {
             g.DrawPath(penBorder, ribbon.Path);
-            g.DrawPath(pen1, ribbon.Path);
+            g.DrawPath(penInner, ribbon.Path);
 
             GraphicsPath inner = (GraphicsPath)ribbon.Path.Clone();
             inner.Widen(penBorder);
@@ -523,7 +522,7 @@ namespace Aspose.Drawing.Showcases
             //gr.DrawString(txt, font, brush, 0, 0);
 
             GraphicsPath path = new GraphicsPath();
-            path.AddString(txt, fontFamily, 0, emSize, new Point(0, 0), strformat);
+            path.AddString(txt, fontFamily, 0, emSize, new Point(0, 0), null);
             gr.FillPath(brush, path);
 
             gr.Restore(state);
@@ -554,7 +553,7 @@ namespace Aspose.Drawing.Showcases
 
             float angle = (float)(180 * Math.Atan2(dy, dx) / Math.PI);
 
-            float hint = 0.45f;
+            float hint = 0.39f;
             float limit = 60.0f;
             float diff = SmallestAngleDiff(prev_angle, angle);
 
@@ -693,24 +692,24 @@ namespace Aspose.Drawing.Showcases
 
     public static class ListExtensions
     {
-        public static T? Next<T>(this IList<T> list, T item)
+        public static T Next<T>(this IList<T> list, T item)
         {
             int index = list.IndexOf(item);
             if (index < 0)
             {
-                return default(T);
+                return item;
             }
 
             int nextIndex = index + 1;
             return nextIndex < list.Count ? list[nextIndex] : list[0];
         }
 
-        public static T? Prev<T>(this IList<T> list, T item)
+        public static T Prev<T>(this IList<T> list, T item)
         {
             int index = list.IndexOf(item);
             if (index < 0)
             {
-                return default(T);
+                return item;
             }
 
             int prevIndex = index - 1;
