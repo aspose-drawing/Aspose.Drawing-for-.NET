@@ -2,6 +2,8 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Xml.Linq;
+using static Aspose.Drawing.Showcases.CelticHeart;
 
 namespace Aspose.Drawing.Showcases
 {
@@ -215,8 +217,10 @@ namespace Aspose.Drawing.Showcases
             }
         }
 
-        private static void DrawRibbon(Ribbon ribbon, Graphics g, int i)
+        private static void DrawRibbon(Ribbon? rbn, Graphics g, int i)
         {
+            Ribbon ribbon = rbn ?? throw new NullReferenceException();
+
             g.DrawPath(penBorder, ribbon.Path);
             g.DrawPath(penInner, ribbon.Path);
 
@@ -224,6 +228,9 @@ namespace Aspose.Drawing.Showcases
             inner.Widen(penBorder);
 
             DrawTextOnPath(g, fontBrush, font, ribbon.Text, ribbon);
+
+            _ = ribbon.Node1 ?? throw new NullReferenceException();
+            _ = ribbon.Node3 ?? throw new NullReferenceException();
 
             PathGradientBrush brush1 = MakeBrush(ribbon.Node1.Point);
             g.FillPath(brush1, inner);
@@ -328,10 +335,12 @@ namespace Aspose.Drawing.Showcases
 
                     if (i == 0) // the first
                     {
+                        _ = span.node ?? throw new NullReferenceException();
                         ribbon.Path.AddLine(span.node.Point, span[1]);
                     }
                     else if (i == spans.Count - 1) // the last
                     {
+                        _ = span.node ?? throw new NullReferenceException();
                         ribbon.Path.AddLine(span[0], span.node.Point);
                     }
                     else
@@ -348,7 +357,7 @@ namespace Aspose.Drawing.Showcases
             for (int i = 0; i < ribbons.Count; i++)
             {
                 Ribbon ribbon = ribbons[i];
-                Node node = ribbon.Node2;
+                Node node = ribbon.Node2 ?? throw new NullReferenceException();
 
                 GraphicsPath part1 = ribbon.Path;
                 GraphicsPath part2 = MakeUnderPart(ribbon.Node2, segments1, segments2);
@@ -390,6 +399,9 @@ namespace Aspose.Drawing.Showcases
         private static GraphicsPath MakeUnderPart(
             Node node, List<Span> segments1, List<Span> segments2)
         {
+            _ = node.SegA ?? throw new NullReferenceException();
+            _ = node.SegB ?? throw new NullReferenceException();
+
             int r = 80;
             PointF iPt = node.Point;
 
@@ -636,7 +648,7 @@ namespace Aspose.Drawing.Showcases
 
         internal class Span
         {
-            public Node node;
+            public Node? node;
             public bool Done;
             private PointF[] points;
 
@@ -655,12 +667,12 @@ namespace Aspose.Drawing.Showcases
         internal class Node
         {
             public PointF Point;
-            public Span SegA;
-            public Span SegB;
+            public Span? SegA;
+            public Span? SegB;
             public bool Otherwise;
-            public Ribbon Ribbon1;
-            public Ribbon Ribbon2;
-            public Ribbon Ribbon3;
+            public Ribbon? Ribbon1;
+            public Ribbon? Ribbon2;
+            public Ribbon? Ribbon3;
         }
 
         internal class Ribbon
@@ -668,9 +680,9 @@ namespace Aspose.Drawing.Showcases
             public GraphicsPath Path = new GraphicsPath();
             public string Text = RandomString();
             public List<Shift> Shifts = new List<Shift>();
-            public Node Node1;
-            public Node Node2;
-            public Node Node3;
+            public Node? Node1;
+            public Node? Node2;
+            public Node? Node3;
         }
 
         internal class Shift
