@@ -2,46 +2,44 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-using System.Xml.Linq;
-using static Aspose.Drawing.Showcases.CelticHeart;
 
 namespace Aspose.Drawing.Showcases
 {
     internal class CelticHeart
     {
-        private static readonly bool makeVideo = false;
+        private static readonly bool makeVideo = true;
         private static readonly float ribbonInnerWidth = 48;
         private static readonly float ribbonStroke = 4;
-        private static Pen penInner = new Pen(Color.FromArgb(255, 60, 60, 90), ribbonInnerWidth);
-        private static Pen penBorder = new Pen(Color.White, ribbonInnerWidth + ribbonStroke * 2);
-        private static Pen penWide = new Pen(Color.Red, ribbonInnerWidth + ribbonStroke * 2 + 8);
-        private static float signWidth = 32;
-        private static float emSize = 32;
-        private static FontFamily fontFamily = new FontFamily("Segoe UI Historic");
-        private static Font font = new Font(fontFamily, emSize);
-        private static Brush fontBrush = new SolidBrush(Color.White);
-        private static string text = "ᛦᛨᛩᛪ᛭ᛮᛯᛰᚠᛅᛆᛇᛈᛉᛊᛋᛏᛐᛒᛓᛗᛘᛚᛝᛞᛟᛠᛡᛢᛣᛥᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚳᚴᚷᚸᚹᚺᚻᚼᚾᚿᛀ";
-        private static int k = 60; // frames per change a sign to next one
+        private static readonly Pen penInner = new(Color.FromArgb(255, 60, 60, 90), ribbonInnerWidth);
+        private static readonly Pen penBorder = new(Color.White, ribbonInnerWidth + ribbonStroke * 2);
+        private static readonly Pen penWide = new(Color.Red, ribbonInnerWidth + ribbonStroke * 2 + 8);
+        private static readonly float signWidth = 32;
+        private static readonly float emSize = 32;
+        private static readonly FontFamily fontFamily = new("Segoe UI Historic");
+        private static readonly Font font = new(fontFamily, emSize);
+        private static readonly Brush fontBrush = new SolidBrush(Color.White);
+        private static readonly string text = "ᛦᛨᛩᛪ᛭ᛮᛯᛰᚠᛅᛆᛇᛈᛉᛊᛋᛏᛐᛒᛓᛗᛘᛚᛝᛞᛟᛠᛡᛢᛣᛥᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚳᚴᚷᚸᚹᚺᚻᚼᚾᚿᛀ";
+        private static readonly string rootDirectory = Path.Combine(RunShowcases.GetDataDir(), "CelticHeart");
+        private static readonly string outputDirectory = Path.Combine(rootDirectory, "out");
+        private static readonly string inputDirectory = Path.Combine(rootDirectory, "RooftopClouds_out");
+        private static readonly Color bgColor = Color.Transparent;
+        private static readonly Random random = new(0);
+        private static readonly int k = 60; // Frame number for moving from one key position to other in creeping line.
+        private static readonly int frameLimit = 934;
         private static int frameNumber = 0;
-        private static int frameLimit = 934;
-        private static string rootDirectory = Path.Combine(RunShowcases.GetDataDir(), "CelticHeart");
-        private static string outputDirectory = Path.Combine(rootDirectory, "out");
-        private static string inputDirectory = Path.Combine(rootDirectory, "RooftopClouds_out");
-        private static Color bgColor = Color.Transparent;
-        private static Random random = new Random(0);
 
         public static void Run()
         {
             int w = 1120;
             int h = 900;
 
-            Bitmap bitmap = new Bitmap(w, h, PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = new(w, h, PixelFormat.Format32bppPArgb);
             Graphics g = Graphics.FromImage(bitmap);
             g.SmoothingMode = SmoothingMode.HighQuality;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
             g.CompositingQuality = CompositingQuality.HighQuality;
 
-            GraphicsPath path1 = new GraphicsPath();
+            GraphicsPath path1 = new();
             path1.AddBezier(567, 712, 411, 600, 302, 412, 352, 332);
             path1.AddBezier(352, 332, 407, 254, 498, 261, 689, 394);
             path1.AddBezier(689, 394, 878, 531, 900, 670, 900, 670);
@@ -54,7 +52,7 @@ namespace Aspose.Drawing.Showcases
             path1.AddBezier(772, 322, 834, 398, 725, 601, 567, 712);
             path1.CloseFigure();
 
-            GraphicsPath path2 = new GraphicsPath();
+            GraphicsPath path2 = new();
             path2.AddBezier(567, 212, 1020, 58, 969, 594, 564, 829);
             path2.AddBezier(564, 829, 163, 597, 116, 60, 567, 212);
             path2.CloseFigure();
@@ -65,10 +63,10 @@ namespace Aspose.Drawing.Showcases
             flatPath1.Flatten();
             flatPath2.Flatten();
 
-            List<Node> nodes = new List<Node>();
-            List<Span> segments = new List<Span>();
-            List<Span> segments1 = new List<Span>();
-            List<Span> segments2 = new List<Span>();
+            List<Node> nodes = new();
+            List<Span> segments = new();
+            List<Span> segments1 = new();
+            List<Span> segments2 = new();
 
             PointF[] points1 = flatPath1.PathPoints;
             PointF[] points2 = flatPath2.PathPoints;
@@ -78,11 +76,6 @@ namespace Aspose.Drawing.Showcases
             segments.AddRange(segments2);
             segments.AddRange(segments1);
 
-            bool lines_intersect;
-            bool segments_intersect;
-            PointF intersection_point;
-            PointF close_p1;
-            PointF close_p2;
             int num = 0;
             for (int i = 0; i < segments.Count; i++)
             {
@@ -99,15 +92,13 @@ namespace Aspose.Drawing.Showcases
 
                     FindIntersection(
                         segA[0], segA[1], segB[0], segB[1],
-                        out lines_intersect, out segments_intersect,
-                        out intersection_point,
-                        out close_p1, out close_p2);
+                        out bool segments_intersect, out PointF intersection_point);
 
                     if (segments_intersect)
                     {
-                        Node node = new Node();
-                        segA.node = node;
-                        segB.node = node;
+                        Node node = new();
+                        segA.Node = node;
+                        segB.Node = node;
                         node.Point = intersection_point;
                         node.SegA = segA;
                         node.SegB = segB;
@@ -118,24 +109,25 @@ namespace Aspose.Drawing.Showcases
                 }
             }
 
-            Node last = nodes[nodes.Count - 1];
+            Node last = nodes[^1];
             last.Otherwise = !last.Otherwise;
 
-            List<Ribbon> ribbons = new List<Ribbon>();
+            List<Ribbon> ribbons = new();
             MakeRibbons(ribbons, segments2);
             MakeRibbons(ribbons, segments1);
             CalcShifts(ribbons, g);
 
-            ImageAttributes imageAttributes = new ImageAttributes();
-            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
-            {
-                new float[] { 1, 0, 0, 0, 0 },
-                new float[] { 0, 1, 0, 0, 0 },
-                new float[] { 0, 0, 1, 0, 0 },
-                new float[] { 0, 0, 0, 0.55f, 0 },
-                new float[] { 0, 0, 0, 0, 1 }
-            });
-
+            ImageAttributes imageAttributes = new();
+            ColorMatrix colorMatrix = new(
+                new float[][]
+                {
+                    new float[] { 1, 0, 0, 0, 0 },
+                    new float[] { 0, 1, 0, 0, 0 },
+                    new float[] { 0, 0, 1, 0, 0 },
+                    new float[] { 0, 0, 0, 0.55f, 0 },
+                    new float[] { 0, 0, 0, 0, 1 }
+                }
+            );
             imageAttributes.SetColorMatrix(
                 colorMatrix,
                 ColorMatrixFlag.Default,
@@ -151,7 +143,7 @@ namespace Aspose.Drawing.Showcases
                 new PointF( x, y + h ),
             };
 
-            RectangleF rect = new RectangleF(0, 0, w, h);
+            RectangleF rect = new(0, 0, w, h);
 
             if (makeVideo)
             {
@@ -180,6 +172,7 @@ namespace Aspose.Drawing.Showcases
                 {
                     ShiftRibbonStrings(ribbons);
                 }
+
                 g.Clear(bgColor);
                 DrawRibbons(ribbons, g);
                 RedrawRibbons(ribbons, segments1, segments2, g);
@@ -195,7 +188,7 @@ namespace Aspose.Drawing.Showcases
             RectangleF rect, ImageAttributes imageAttributes)
         {
             string bgFile = Path.Combine(inputDirectory, $"{frameNumber:d5}.png");
-            Bitmap frame = new Bitmap(bgFile);
+            Bitmap frame = new(bgFile);
             Graphics g2 = Graphics.FromImage(frame);
             g2.CompositingQuality = CompositingQuality.HighQuality;
 
@@ -209,15 +202,15 @@ namespace Aspose.Drawing.Showcases
             return frame;
         }
 
-        private static void CalcShifts(List<Ribbon> ribbons, Graphics g)
+        private static void DrawRibbons(List<Ribbon> ribbons, Graphics g)
         {
             for (int i = 0; i < ribbons.Count; i++)
             {
-                CalcShiftsOnPath(g, font, ribbons[i].Text, ribbons[i]);
+                DrawRibbon(ribbons[i], g);
             }
         }
 
-        private static void DrawRibbon(Ribbon? rbn, Graphics g, int i)
+        private static void DrawRibbon(Ribbon? rbn, Graphics g)
         {
             Ribbon ribbon = rbn ?? throw new NullReferenceException();
 
@@ -227,7 +220,7 @@ namespace Aspose.Drawing.Showcases
             GraphicsPath inner = (GraphicsPath)ribbon.Path.Clone();
             inner.Widen(penBorder);
 
-            DrawTextOnPath(g, fontBrush, font, ribbon.Text, ribbon);
+            DrawTextOnPath(g, ribbon.Text, ribbon);
 
             _ = ribbon.Node1 ?? throw new NullReferenceException();
             _ = ribbon.Node3 ?? throw new NullReferenceException();
@@ -239,48 +232,17 @@ namespace Aspose.Drawing.Showcases
             g.FillPath(brush3, inner);
         }
 
-        private static float NormalizeAngle(float angle)
-        {
-            angle %= 360;
-            return angle < 0 ? angle += 360 : angle;
-        }
-
-        private static float SmallestAngleDiff(float alpha, float beta)
-        {
-            float diff = 180 - Math.Abs(Math.Abs(NormalizeAngle(alpha) - NormalizeAngle(beta)) - 180);
-
-            if (alpha - beta > 180)
-            {
-                alpha -= 360;
-            }
-            else if (beta - alpha > 180)
-            {
-                alpha -= 360;
-            }
-
-            return alpha > beta ? -diff : diff;
-        }
-
         private static PathGradientBrush MakeBrush(PointF pt)
         {
             float r = 80;
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddEllipse(pt.X - r, pt.Y - r, r * 2, r * 2);
 
-            PathGradientBrush brush = new PathGradientBrush(path);
-            brush.CenterColor = Color.FromArgb(255, 0, 0, 0);
+            PathGradientBrush brush = new(path) { CenterColor = Color.FromArgb(255, 0, 0, 0) };
             Color[] colors = { Color.FromArgb(0, 60, 60, 90) };
             brush.SurroundColors = colors;
 
             return brush;
-        }
-
-        private static void DrawRibbons(List<Ribbon> ribbons, Graphics g)
-        {
-            for (int i = 0; i < ribbons.Count; i++)
-            {
-                DrawRibbon(ribbons[i], g, i);
-            }
         }
 
         private static void MakeRibbons(List<Ribbon> ribbons, List<Span> segments)
@@ -289,7 +251,7 @@ namespace Aspose.Drawing.Showcases
 
             while (true)
             {
-                while (seg.node == null)
+                while (seg.Node == null)
                 {
                     seg = segments.Next(seg);
                 }
@@ -301,22 +263,21 @@ namespace Aspose.Drawing.Showcases
 
                 seg.Done = true;
 
-                Ribbon ribbon = new Ribbon();
+                Ribbon ribbon = new();
                 ribbons.Add(ribbon);
-                ribbon.Node1 = seg.node;
+                ribbon.Node1 = seg.Node;
                 ribbon.Node1.Ribbon1 = ribbon;
 
-                List<Span> spans = new List<Span>();
-                spans.Add(seg);
+                List<Span> spans = new() { seg };
 
                 do
                 {
                     seg = segments.Next(seg);
                     spans.Add(seg);
                 }
-                while (seg.node == null);
+                while (seg.Node == null);
 
-                ribbon.Node2 = seg.node;
+                ribbon.Node2 = seg.Node;
                 ribbon.Node2.Ribbon2 = ribbon;
 
                 do
@@ -324,9 +285,9 @@ namespace Aspose.Drawing.Showcases
                     seg = segments.Next(seg);
                     spans.Add(seg);
                 }
-                while (seg.node == null);
+                while (seg.Node == null);
 
-                ribbon.Node3 = seg.node;
+                ribbon.Node3 = seg.Node;
                 ribbon.Node3.Ribbon3 = ribbon;
 
                 for (int i = 0; i < spans.Count; i++)
@@ -335,13 +296,13 @@ namespace Aspose.Drawing.Showcases
 
                     if (i == 0) // the first
                     {
-                        _ = span.node ?? throw new NullReferenceException();
-                        ribbon.Path.AddLine(span.node.Point, span[1]);
+                        _ = span.Node ?? throw new NullReferenceException();
+                        ribbon.Path.AddLine(span.Node.Point, span[1]);
                     }
                     else if (i == spans.Count - 1) // the last
                     {
-                        _ = span.node ?? throw new NullReferenceException();
-                        ribbon.Path.AddLine(span[0], span.node.Point);
+                        _ = span.Node ?? throw new NullReferenceException();
+                        ribbon.Path.AddLine(span[0], span.Node.Point);
                     }
                     else
                     {
@@ -368,23 +329,18 @@ namespace Aspose.Drawing.Showcases
                 widenPart1.Widen(penWide);
                 widenPart2.Widen(penWide);
 
-                Region interParts = new Region(widenPart1);
+                Region interParts = new(widenPart1);
                 interParts.Intersect(new Region(widenPart2));
 
                 g.Clip = interParts;
                 g.Clear(bgColor);
 
-                DrawRibbon(node.Ribbon1, g, -1);
-                DrawRibbon(node.Ribbon3, g, -1);
-                DrawRibbon(node.Ribbon2, g, i);
+                DrawRibbon(node.Ribbon1, g);
+                DrawRibbon(node.Ribbon3, g);
+                DrawRibbon(node.Ribbon2, g);
 
                 g.ResetClip();
             }
-        }
-
-        private static double Distance(PointF p1, PointF p2)
-        {
-            return Math.Sqrt(Math.Pow((p2.X - p1.X), 2) + Math.Pow((p2.Y - p1.Y), 2));
         }
 
         private static void AddSpans(List<Span> segments, PointF[] points)
@@ -405,7 +361,7 @@ namespace Aspose.Drawing.Showcases
             int r = 80;
             PointF iPt = node.Point;
 
-            GraphicsPath part = new GraphicsPath();
+            GraphicsPath part = new();
             Span seg = node.Otherwise ? node.SegA : node.SegB;
             List<Span> segs = segments1.Contains(seg) ? segments1 : segments2;
 
@@ -435,74 +391,28 @@ namespace Aspose.Drawing.Showcases
             return part;
         }
 
-        // Find the point of intersection between
-        // the lines p1 --> p2 and p3 --> p4.
         private static void FindIntersection(
             PointF p1, PointF p2, PointF p3, PointF p4,
-            out bool lines_intersect, out bool segments_intersect,
-            out PointF intersection,
-            out PointF close_p1, out PointF close_p2)
+            out bool segments_intersect, out PointF intersection)
         {
-            // Get the segments' parameters.
             float dx12 = p2.X - p1.X;
             float dy12 = p2.Y - p1.Y;
             float dx34 = p4.X - p3.X;
             float dy34 = p4.Y - p3.Y;
-
-            // Solve for t1 and t2
-            float denominator = (dy12 * dx34 - dx12 * dy34);
-
-            float t1 =
-                ((p1.X - p3.X) * dy34 + (p3.Y - p1.Y) * dx34)
-                    / denominator;
+            float denominator = dy12 * dx34 - dx12 * dy34;
+            float t1 = ((p1.X - p3.X) * dy34 + (p3.Y - p1.Y) * dx34) / denominator;
             if (float.IsInfinity(t1))
             {
-                // The lines are parallel (or close enough to it).
-                lines_intersect = false;
                 segments_intersect = false;
                 intersection = new PointF(float.NaN, float.NaN);
-                close_p1 = new PointF(float.NaN, float.NaN);
-                close_p2 = new PointF(float.NaN, float.NaN);
                 return;
             }
-            lines_intersect = true;
-
-            float t2 =
-                ((p3.X - p1.X) * dy12 + (p1.Y - p3.Y) * dx12)
-                    / -denominator;
-
-            // Find the point of intersection.
+            float t2 = ((p3.X - p1.X) * dy12 + (p1.Y - p3.Y) * dx12) / -denominator;
             intersection = new PointF(p1.X + dx12 * t1, p1.Y + dy12 * t1);
-
-            // The segments intersect if t1 and t2 are between 0 and 1.
-            segments_intersect =
-                ((t1 >= 0) && (t1 <= 1) &&
-                 (t2 >= 0) && (t2 <= 1));
-
-            // Find the closest points on the segments.
-            if (t1 < 0)
-            {
-                t1 = 0;
-            }
-            else if (t1 > 1)
-            {
-                t1 = 1;
-            }
-
-            if (t2 < 0)
-            {
-                t2 = 0;
-            }
-            else if (t2 > 1)
-            {
-                t2 = 1;
-            }
-
-            close_p1 = new PointF(p1.X + dx12 * t1, p1.Y + dy12 * t1);
-            close_p2 = new PointF(p3.X + dx34 * t2, p3.Y + dy34 * t2);
+            segments_intersect = (t1 >= 0) && (t1 <= 1) && (t2 >= 0) && (t2 <= 1);
         }
 
-        private static void DrawTextOnPath(Graphics gr, Brush brush, Font font, string txt, Ribbon ribbon)
+        private static void DrawTextOnPath(Graphics g, string txt, Ribbon ribbon)
         {
             for (int i = 1; i < ribbon.Shifts.Count - 1; i++)
             {
@@ -512,35 +422,40 @@ namespace Aspose.Drawing.Showcases
                 Shift shift2 = ribbon.Shifts[i + 1];
 
                 int n = (frameNumber - 1) % k;
-                Shift shift = new Shift(
+                Shift shift = new(
                     shift1.X + (shift2.X - shift1.X) / k * n,
                     shift1.Y + (shift2.Y - shift1.Y) / k * n,
                     shift1.Angle + SmallestAngleDiff(shift1.Angle, shift2.Angle) / k * n,
                     shift1.Hint + (shift2.Hint - shift1.Hint) / k * n);
 
-                DrawTextOnSegment(gr, brush, font, sub, shift);
+                DrawTextOnSegment(g, sub, shift);
             }
         }
 
-        private static void DrawTextOnSegment(Graphics gr, Brush brush,
-            Font font, string txt, Shift shift)
+        private static void DrawTextOnSegment(Graphics g, string txt, Shift shift)
         {
-            GraphicsState state = gr.Save();
+            GraphicsState state = g.Save();
 
-            gr.TranslateTransform(0, shift.Hint, MatrixOrder.Append);
-            gr.RotateTransform(shift.Angle, MatrixOrder.Append);
-            gr.TranslateTransform(shift.X, shift.Y, MatrixOrder.Append);
+            g.TranslateTransform(0, shift.Hint, MatrixOrder.Append);
+            g.RotateTransform(shift.Angle, MatrixOrder.Append);
+            g.TranslateTransform(shift.X, shift.Y, MatrixOrder.Append);
 
-            //gr.DrawString(txt, font, brush, 0, 0);
-
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath path = new();
             path.AddString(txt, fontFamily, 0, emSize, new Point(0, 0), null);
-            gr.FillPath(brush, path);
+            g.FillPath(fontBrush, path);
 
-            gr.Restore(state);
+            g.Restore(state);
         }
 
-        private static void CalcShiftsOnSegment(Graphics gr, Font font, string txt, ref int first_ch,
+        private static void CalcShifts(List<Ribbon> ribbons, Graphics g)
+        {
+            for (int i = 0; i < ribbons.Count; i++)
+            {
+                CalcShiftsOnPath(g, ribbons[i].Text, ribbons[i]);
+            }
+        }
+
+        private static void CalcShiftsOnSegment(Graphics g, string txt, ref int first_ch,
             ref PointF start_point, PointF end_point,
             ref float prev_angle, Ribbon ribbon)
         {
@@ -577,7 +492,7 @@ namespace Aspose.Drawing.Showcases
             prev_angle = angle;
 
             ribbon.Shifts.Add(new Shift(start_point.X, start_point.Y, angle,
-                -gr.MeasureString(chars_that_fit, font).Height * hint));
+                -g.MeasureString(chars_that_fit, font).Height * hint));
 
             first_ch++;
             start_point = new PointF(
@@ -585,7 +500,7 @@ namespace Aspose.Drawing.Showcases
                 start_point.Y + dy * signWidth);
         }
 
-        private static void CalcShiftsOnPath(Graphics gr, Font font, string txt, Ribbon ribbon)
+        private static void CalcShiftsOnPath(Graphics g, string txt, Ribbon ribbon)
         {
             int start_ch = 0;
             PointF start_point = ribbon.Path.PathPoints[0];
@@ -593,7 +508,7 @@ namespace Aspose.Drawing.Showcases
             for (int i = 1; i < ribbon.Path.PointCount - 1; i++)
             {
                 PointF end_point = ribbon.Path.PathPoints[i];
-                CalcShiftsOnSegment(gr, font, txt, ref start_ch,
+                CalcShiftsOnSegment(g, txt, ref start_ch,
                     ref start_point, end_point, ref prev_angle, ribbon);
                 if (start_ch >= txt.Length) break;
             }
@@ -601,7 +516,7 @@ namespace Aspose.Drawing.Showcases
             Shift shift1 = ribbon.Shifts[0];
             Shift shift2 = ribbon.Shifts[1];
 
-            Shift shift = new Shift(
+            Shift shift = new(
                 shift1.X - (shift1.X - shift2.X),
                 shift1.Y - (shift1.Y - shift2.Y),
                 shift1.Angle - SmallestAngleDiff(shift1.Angle, shift2.Angle),
@@ -609,8 +524,8 @@ namespace Aspose.Drawing.Showcases
 
             ribbon.Shifts.Insert(0, shift);
 
-            shift1 = ribbon.Shifts[ribbon.Shifts.Count - 2];
-            shift2 = ribbon.Shifts[ribbon.Shifts.Count - 1];
+            shift1 = ribbon.Shifts[^2];
+            shift2 = ribbon.Shifts[^1];
 
             shift = new Shift(
                 shift2.X + (shift2.X - shift1.X),
@@ -625,7 +540,7 @@ namespace Aspose.Drawing.Showcases
         {
             string text2 = text.Remove(text.IndexOf(t[0]), 1);
             int i = random.Next(0, text2.Length - 1);
-            return text2[i] + t.Substring(0, t.Length - 1);
+            return text2[i] + t[..^1];
         }
 
         private static string RandomString()
@@ -646,15 +561,43 @@ namespace Aspose.Drawing.Showcases
             }
         }
 
+        private static double Distance(PointF p1, PointF p2)
+        {
+            return Math.Sqrt(Math.Pow((p2.X - p1.X), 2) + Math.Pow((p2.Y - p1.Y), 2));
+        }
+
+        private static float NormalizeAngle(float angle)
+        {
+            angle %= 360;
+            return angle < 0 ? angle += 360 : angle;
+        }
+
+        private static float SmallestAngleDiff(float alpha, float beta)
+        {
+            float diff = 180 - Math.Abs(Math.Abs(NormalizeAngle(alpha) - NormalizeAngle(beta)) - 180);
+
+            if (alpha - beta > 180)
+            {
+                alpha -= 360;
+            }
+            else if (beta - alpha > 180)
+            {
+                alpha -= 360;
+            }
+
+            return alpha > beta ? -diff : diff;
+        }
+
         internal class Span
         {
-            public Node? node;
+            public Node? Node;
             public bool Done;
-            private PointF[] points;
+            private readonly PointF[] points = new PointF[2];
 
             public Span(PointF start, PointF end)
             {
-                this.points = new PointF[2] { start, end };
+                this.points[0] = start;
+                this.points[1] = end;
             }
 
             public PointF this[int index]
@@ -677,9 +620,9 @@ namespace Aspose.Drawing.Showcases
 
         internal class Ribbon
         {
-            public GraphicsPath Path = new GraphicsPath();
+            public GraphicsPath Path = new();
             public string Text = RandomString();
-            public List<Shift> Shifts = new List<Shift>();
+            public List<Shift> Shifts = new();
             public Node? Node1;
             public Node? Node2;
             public Node? Node3;
