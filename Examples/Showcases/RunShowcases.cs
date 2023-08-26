@@ -9,7 +9,8 @@
                 LoadLicenseFromFile(args[0]);
             }
 
-            CelticHeart.Run(); // Launch prepare.cmd before this.
+            CelticHeart.Run();
+            CarBody.Run();
         }
 
         public static string GetDataDir()

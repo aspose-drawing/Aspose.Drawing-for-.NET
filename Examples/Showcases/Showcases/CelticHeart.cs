@@ -7,7 +7,7 @@ namespace Aspose.Drawing.Showcases
 {
     internal class CelticHeart
     {
-        private static readonly bool makeVideo = true;
+        private static readonly bool makeVideo = false;
         private static readonly float ribbonInnerWidth = 48;
         private static readonly float ribbonStroke = 4;
         private static readonly Pen penInner = new(Color.FromArgb(255, 60, 60, 90), ribbonInnerWidth);
