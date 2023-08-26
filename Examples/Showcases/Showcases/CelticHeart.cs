@@ -21,12 +21,20 @@ namespace Aspose.Drawing.Showcases
         private static readonly string text = "ᛦᛨᛩᛪ᛭ᛮᛯᛰᚠᛅᛆᛇᛈᛉᛊᛋᛏᛐᛒᛓᛗᛘᛚᛝᛞᛟᛠᛡᛢᛣᛥᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚳᚴᚷᚸᚹᚺᚻᚼᚾᚿᛀ";
         private static readonly string rootDirectory = Path.Combine(RunShowcases.GetDataDir(), "CelticHeart");
         private static readonly string outputDirectory = Path.Combine(rootDirectory, "out");
-        private static readonly string inputDirectory = Path.Combine(rootDirectory, "RooftopClouds_out");
+        private static readonly string inputDirectory1 = Path.Combine(rootDirectory, "RooftopClouds_out");
+        private static readonly string inputDirectory2 = Path.Combine(rootDirectory, "StarrySky_out");
         private static readonly Color bgColor = Color.Transparent;
         private static readonly Random random = new(0);
-        private static readonly int k = 60; // Frame number for moving from one key position to other in creeping line.
-        private static readonly int frameLimit = 934;
+        private static readonly int k = 60; // Frame number for transition from one key position to another on the creeping line.
+        private static readonly int frameLimit1 = 934;
+        private static readonly int frameLimit2 = 722;
+        private static readonly int bgMixLimit = 150;
+        private static readonly int bgCycleLimit = frameLimit1 + frameLimit2 - bgMixLimit * 2;
+        private static readonly int frameLimit = (3 * 60 + 46) * 30; // 3:46 (Nakarada.mp3), 226 seconds * 30 fps = 6780 frames
         private static int frameNumber = 0;
+        private static int frameNumber1 = 0;
+        private static int frameNumber2 = 0;
+        private static int bgMixNumber = 0;
 
         public static void Run()
         {
@@ -147,7 +155,7 @@ namespace Aspose.Drawing.Showcases
 
             if (makeVideo)
             {
-                for (int i = 0; i <= frameLimit - 1; i++)
+                for (int i = 0; i < frameLimit; i++)
                 {
                     if (i % k == 0)
                     {
@@ -167,7 +175,7 @@ namespace Aspose.Drawing.Showcases
             }
             else
             {
-                frameNumber = 1;
+                frameNumber = 75;
                 for (int i = 0; i < 1; i++)
                 {
                     ShiftRibbonStrings(ribbons);
@@ -184,11 +192,41 @@ namespace Aspose.Drawing.Showcases
             }
         }
 
+        private static void CalcFrameNumbers()
+        {
+            int frameIndex = (frameNumber - 1) % bgCycleLimit;
+
+            if (frameIndex >= 0 && frameIndex < bgMixLimit)
+            {
+                frameNumber1 = frameIndex + 1;
+                frameNumber2 = frameLimit2 - bgMixLimit + frameIndex + 1;
+                bgMixNumber = frameNumber1;
+            }
+            else if (frameIndex >= bgMixLimit && frameIndex < frameLimit1 - bgMixLimit)
+            {
+                frameNumber1 = frameIndex + 1;
+                frameNumber2 = 0;
+                bgMixNumber = frameNumber2;
+            }
+            else if (frameIndex >= frameLimit1 - bgMixLimit && frameIndex < frameLimit1)
+            {
+                frameNumber1 = frameIndex + 1;
+                frameNumber2 = frameIndex - (frameLimit1 - bgMixLimit) + 1;
+                bgMixNumber = frameNumber2;
+            }
+            else if (frameIndex >= frameLimit1 && frameIndex < bgCycleLimit)
+            {
+                frameNumber1 = 0;
+                frameNumber2 = frameIndex - (frameLimit1 - bgMixLimit) + 1;
+                bgMixNumber = frameNumber1;
+            }
+        }
+
         private static Bitmap Mix(Bitmap bitmap, PointF[] destParallelogram,
             RectangleF rect, ImageAttributes imageAttributes)
         {
-            string bgFile = Path.Combine(inputDirectory, $"{frameNumber:d5}.png");
-            Bitmap frame = new(bgFile);
+            CalcFrameNumbers();
+            Bitmap frame = BackgroundMix();
             Graphics g2 = Graphics.FromImage(frame);
             g2.CompositingQuality = CompositingQuality.HighQuality;
 
@@ -200,6 +238,75 @@ namespace Aspose.Drawing.Showcases
                 imageAttributes);
 
             return frame;
+        }
+
+        private static Bitmap BackgroundMix()
+        {
+            if (frameNumber1 == 0)
+            {
+                string bgFile = Path.Combine(inputDirectory2, $"{frameNumber2:d5}.png");
+                Bitmap frame = new(bgFile);
+                return frame;
+            }
+
+            if (frameNumber2 == 0)
+            {
+                string bgFile = Path.Combine(inputDirectory1, $"{frameNumber1:d5}.png");
+                Bitmap frame = new(bgFile);
+                return frame;
+            }
+
+            float transparencyStep = 1.0f / (bgMixLimit + 1);
+            float transparency = transparencyStep * bgMixNumber;
+            if (frameNumber1 < frameNumber2)
+            {
+                transparency = 1.0f - transparency;
+            }
+
+            float x = 0;
+            float y = 0;
+            float w = 1920;
+            float h = 1080;
+            PointF[] destParallelogram = new PointF[]
+            {
+                new PointF( x, y ),
+                new PointF( x + w, y ),
+                new PointF( x, y + h ),
+            };
+
+            ImageAttributes imageAttributes = new();
+            ColorMatrix colorMatrix = new(
+                new float[][]
+                {
+                    new float[] { 1, 0, 0, 0, 0 },
+                    new float[] { 0, 1, 0, 0, 0 },
+                    new float[] { 0, 0, 1, 0, 0 },
+                    new float[] { 0, 0, 0, transparency, 0 },
+                    new float[] { 0, 0, 0, 0, 1 }
+                }
+            );
+            imageAttributes.SetColorMatrix(
+                colorMatrix,
+                ColorMatrixFlag.Default,
+                ColorAdjustType.Bitmap);
+
+            string bgFile1 = Path.Combine(inputDirectory1, $"{frameNumber1:d5}.png");
+            Bitmap frame1 = new(bgFile1);
+
+            string bgFile2 = Path.Combine(inputDirectory2, $"{frameNumber2:d5}.png");
+            Bitmap frame2 = new(bgFile2);
+
+            Graphics g1 = Graphics.FromImage(frame1);
+            g1.CompositingQuality = CompositingQuality.HighQuality;
+
+            g1.DrawImage(
+                frame2,
+                destParallelogram,
+                new RectangleF(0, 0, frame2.Width, frame2.Height),
+                GraphicsUnit.Pixel,
+                imageAttributes);
+
+            return frame1;
         }
 
         private static void DrawRibbons(List<Ribbon> ribbons, Graphics g)
