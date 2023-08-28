@@ -2,7 +2,6 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-using static Aspose.Drawing.Showcases.CelticHeart;
 
 namespace Aspose.Drawing.Showcases
 {
@@ -42,7 +41,7 @@ namespace Aspose.Drawing.Showcases
             int w = 1120;
             int h = 900;
 
-            Bitmap bitmap = new(w, h, PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = new(w, h);
             Graphics g = Graphics.FromImage(bitmap);
             g.SmoothingMode = SmoothingMode.HighQuality;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;

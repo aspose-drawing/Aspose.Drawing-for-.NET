@@ -91,7 +91,7 @@ namespace Aspose.Drawing.Showcases
 
         private static Bitmap Mix(int w, int h, Bitmap frame1, Bitmap frame2, float percent)
         {
-            Bitmap bitmap = new(w, h, PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = new(w, h);
             Graphics g = Graphics.FromImage(bitmap);
             g.SmoothingMode = SmoothingMode.HighQuality;
 
@@ -124,7 +124,7 @@ namespace Aspose.Drawing.Showcases
 
         private static Bitmap DrawFrame(int w, int h, GraphicsPath carBody, Skin skin)
         {
-            Bitmap bitmap = new(w, h, PixelFormat.Format32bppPArgb);
+            Bitmap bitmap = new(w, h);
             Graphics g = Graphics.FromImage(bitmap);
             g.Clear(Color.White);
             g.SmoothingMode = SmoothingMode.HighQuality;
@@ -138,7 +138,7 @@ namespace Aspose.Drawing.Showcases
 
             if (skin.Design.Count > 0)
             {
-                Bitmap bitmap2 = new(w, h, PixelFormat.Format32bppPArgb);
+                Bitmap bitmap2 = new(w, h);
                 Graphics g2 = Graphics.FromImage(bitmap2);
                 g2.SmoothingMode = SmoothingMode.HighQuality;
                 g2.TextRenderingHint = TextRenderingHint.AntiAlias;
