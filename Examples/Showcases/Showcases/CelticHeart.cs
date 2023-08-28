@@ -2,6 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using static Aspose.Drawing.Showcases.CelticHeart;
 
 namespace Aspose.Drawing.Showcases
 {
@@ -317,10 +318,8 @@ namespace Aspose.Drawing.Showcases
             }
         }
 
-        private static void DrawRibbon(Ribbon? rbn, Graphics g)
+        private static void DrawRibbon(Ribbon ribbon, Graphics g)
         {
-            Ribbon ribbon = rbn ?? throw new NullReferenceException();
-
             g.DrawPath(penBorder, ribbon.Path);
             g.DrawPath(penInner, ribbon.Path);
 
@@ -329,8 +328,10 @@ namespace Aspose.Drawing.Showcases
 
             DrawTextOnPath(g, ribbon.Text, ribbon);
 
-            _ = ribbon.Node1 ?? throw new NullReferenceException();
-            _ = ribbon.Node3 ?? throw new NullReferenceException();
+            if (ribbon.Node1 is null || ribbon.Node3 is null)
+            {
+                return;
+            }
 
             PathGradientBrush brush1 = MakeBrush(ribbon.Node1.Point);
             g.FillPath(brush1, inner);
@@ -401,14 +402,12 @@ namespace Aspose.Drawing.Showcases
                 {
                     Span span = spans[i];
 
-                    if (i == 0) // the first
+                    if (i == 0 && span.Node is not null) // the first
                     {
-                        _ = span.Node ?? throw new NullReferenceException();
                         ribbon.Path.AddLine(span.Node.Point, span[1]);
                     }
-                    else if (i == spans.Count - 1) // the last
+                    else if (i == spans.Count - 1 && span.Node is not null) // the last
                     {
-                        _ = span.Node ?? throw new NullReferenceException();
                         ribbon.Path.AddLine(span[0], span.Node.Point);
                     }
                     else
@@ -425,28 +424,34 @@ namespace Aspose.Drawing.Showcases
             for (int i = 0; i < ribbons.Count; i++)
             {
                 Ribbon ribbon = ribbons[i];
-                Node node = ribbon.Node2 ?? throw new NullReferenceException();
+                if (ribbon.Node2 is not null)
+                {
+                    Node node = ribbon.Node2;
 
-                GraphicsPath part1 = ribbon.Path;
-                GraphicsPath part2 = MakeUnderPart(ribbon.Node2, segments1, segments2);
+                    GraphicsPath part1 = ribbon.Path;
+                    GraphicsPath part2 = MakeUnderPart(ribbon.Node2, segments1, segments2);
 
-                GraphicsPath widenPart1 = (GraphicsPath)part1.Clone();
-                GraphicsPath widenPart2 = (GraphicsPath)part2.Clone();
+                    GraphicsPath widenPart1 = (GraphicsPath)part1.Clone();
+                    GraphicsPath widenPart2 = (GraphicsPath)part2.Clone();
 
-                widenPart1.Widen(penWide);
-                widenPart2.Widen(penWide);
+                    widenPart1.Widen(penWide);
+                    widenPart2.Widen(penWide);
 
-                Region interParts = new(widenPart1);
-                interParts.Intersect(new Region(widenPart2));
+                    Region interParts = new(widenPart1);
+                    interParts.Intersect(new Region(widenPart2));
 
-                g.Clip = interParts;
-                g.Clear(bgColor);
+                    g.Clip = interParts;
+                    g.Clear(bgColor);
 
-                DrawRibbon(node.Ribbon1, g);
-                DrawRibbon(node.Ribbon3, g);
-                DrawRibbon(node.Ribbon2, g);
+                    if (node.Ribbon1 is not null && node.Ribbon2 is not null && node.Ribbon3 is not null)
+                    {
+                        DrawRibbon(node.Ribbon1, g);
+                        DrawRibbon(node.Ribbon3, g);
+                        DrawRibbon(node.Ribbon2, g);
+                    }
 
-                g.ResetClip();
+                    g.ResetClip();
+                }
             }
         }
 
@@ -462,13 +467,14 @@ namespace Aspose.Drawing.Showcases
         private static GraphicsPath MakeUnderPart(
             Node node, List<Span> segments1, List<Span> segments2)
         {
-            _ = node.SegA ?? throw new NullReferenceException();
-            _ = node.SegB ?? throw new NullReferenceException();
+            GraphicsPath part = new();
+            if (node.SegA is null || node.SegB is null)
+            {
+                return part;
+            }
 
             int r = 80;
             PointF iPt = node.Point;
-
-            GraphicsPath part = new();
             Span seg = node.Otherwise ? node.SegA : node.SegB;
             List<Span> segs = segments1.Contains(seg) ? segments1 : segments2;
 
