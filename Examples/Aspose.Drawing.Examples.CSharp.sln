@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1145
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "CSharp\CSharp.csproj", "{075392CA-06F4-4170-935C-6E9B7AFF28F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Showcases", "Showcases\Showcases.csproj", "{F5E59517-2430-442A-A432-F55C09B7F2B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{075392CA-06F4-4170-935C-6E9B7AFF28F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{075392CA-06F4-4170-935C-6E9B7AFF28F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{075392CA-06F4-4170-935C-6E9B7AFF28F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E59517-2430-442A-A432-F55C09B7F2B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E59517-2430-442A-A432-F55C09B7F2B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E59517-2430-442A-A432-F55C09B7F2B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E59517-2430-442A-A432-F55C09B7F2B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
