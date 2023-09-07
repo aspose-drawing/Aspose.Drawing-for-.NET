@@ -17,9 +17,7 @@ Please find more details for how to run the examples [here](https://docs.aspose.
 + The Showcases project has been created in Visual Studio Community 2022, because it uses .NET 7.0.
 + Each showcase will create only one frame, but you can toggle to create hundreds of frames for video files. But rendering of video will take a long time (~15 minutes for CelticHeart showcase).
 
-### CelticHeart
-
-+ Firstly, run `prepare.cmd` to create some folders and background frames from videofile.
++ Firstly, run [`prepare.cmd`](Data/Showcases/prepare.cmd) to create some folders and background frames from videofile.
 + Finally, run `make_video.cmd` and `add_sound.cmd` (optionally, if option `makeVideo` is enabled).
 
 [Home](https://www.aspose.com/) | [Product Page](https://products.aspose.com/drawing/net) | [Docs](https://docs.aspose.com/drawing/net/) | [Demos](https://products.aspose.app/drawing/family) | [API Reference](https://apireference.aspose.com/drawing/net) | [Examples](https://github.com/aspose-drawing/Aspose.Drawing-for-.NET/tree/master/Examples) | [Blog](https://blog.aspose.com/category/drawing/) | [Free Support](https://forum.aspose.com/c/drawing) | [Temporary License](https://purchase.aspose.com/temporary-license)
