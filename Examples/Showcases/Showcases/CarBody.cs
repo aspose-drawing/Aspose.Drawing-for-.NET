@@ -20,6 +20,11 @@ namespace Aspose.Drawing.Showcases
             int w = 1024;
             int h = 438;
 
+            if (!Directory.Exists(outputDirectory))
+            {
+                Directory.CreateDirectory(outputDirectory);
+            }
+
             GraphicsPath carBody = MakeCarBody(h);
 
             Skin skin1 = new() { Background = Color.FromArgb(120, 0, 80, 80) };
