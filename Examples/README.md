@@ -19,8 +19,8 @@ Please find more details for how to run the examples [here](https://docs.aspose.
 
 Separated frames for example:
 
-![CarBody](Data/Showcases/CarBody/sample_CarBody.png | width=500)
-![CelticHeart](Data/Showcases/CelticHeart/sample_CelticHeart.png | width=500)
+![CarBody|500](Data/Showcases/CarBody/sample_CarBody.png)
+![CelticHeart|500](Data/Showcases/CelticHeart/sample_CelticHeart.png)
 
 For video only:
 + Firstly, run [`prepare.cmd`](Data/Showcases/prepare.cmd) to create some folders and background frames from videofile.
