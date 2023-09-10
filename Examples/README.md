@@ -19,9 +19,9 @@ Please find more details for how to run the examples [here](https://docs.aspose.
 
 Separated frames for example:
 
-| CarBody  | CelticHeart |
-| -------- | ----------- |
-| ![CarBody](Data/Showcases/CarBody/sample_CarBody.png)  | ![CelticHeart](Data/Showcases/CelticHeart/sample_CelticHeart.png)  |
+| CarBody  | CelticHeart | LollipopFont |
+| -------- | ----------- | ------------ |
+| ![CarBody](Data/Showcases/CarBody/sample_CarBody.png)  | ![CelticHeart](Data/Showcases/CelticHeart/sample_CelticHeart.png)  || ![LollipopFont](Data/Showcases/CelticHeart/sample_LollipopFont.png)  |
 
 For video only:
 + Firstly, run [`prepare.cmd`](Data/Showcases/prepare.cmd) to create some folders and background frames from videofile.

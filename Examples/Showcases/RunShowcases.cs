@@ -15,6 +15,7 @@ namespace Aspose.Drawing.Showcases
             {
                 CelticHeart.Run();
                 CarBody.Run();
+                LollipopFont.Run();
             }
             catch (DirectoryNotFoundException e)
             {
