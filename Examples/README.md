@@ -21,7 +21,7 @@ Separated frames for example:
 
 | CarBody  | CelticHeart | LollipopFont |
 | -------- | ----------- | ------------ |
-| ![CarBody](Data/Showcases/CarBody/sample_CarBody.png)  | ![CelticHeart](Data/Showcases/CelticHeart/sample_CelticHeart.png)  || ![LollipopFont](Data/Showcases/CelticHeart/sample_LollipopFont.png)  |
+| ![CarBody](Data/Showcases/CarBody/sample_CarBody.png)  | ![CelticHeart](Data/Showcases/CelticHeart/sample_CelticHeart.png)  || ![LollipopFont](Data/Showcases/LollipopFont/sample_LollipopFont.png)  |
 
 For video only:
 + Firstly, run [`prepare.cmd`](Data/Showcases/prepare.cmd) to create some folders and background frames from videofile.
