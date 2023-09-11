@@ -5,7 +5,12 @@ VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "CSharp\CSharp.csproj", "{075392CA-06F4-4170-935C-6E9B7AFF28F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Showcases", "Showcases\Showcases.csproj", "{F5E59517-2430-442A-A432-F55C09B7F2B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Showcases", "Showcases\Showcases.csproj", "{F5E59517-2430-442A-A432-F55C09B7F2B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84A29DBF-FACC-4CD7-B574-0018CA31088D}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
