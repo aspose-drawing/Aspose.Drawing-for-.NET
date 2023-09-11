@@ -1,0 +1,1 @@
+ffmpeg -framerate 30 -i ./out/%%04d.png -vcodec libx264 -pix_fmt yuv420p -vf scale=1920x1080 ./out/LollipopFont.mp4

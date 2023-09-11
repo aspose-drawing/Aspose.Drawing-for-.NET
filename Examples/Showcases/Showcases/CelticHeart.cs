@@ -21,7 +21,7 @@ namespace Aspose.Drawing.Showcases
         private static readonly string text = "ᛦᛨᛩᛪ᛭ᛮᛯᛰᚠᛅᛆᛇᛈᛉᛊᛋᛏᛐᛒᛓᛗᛘᛚᛝᛞᛟᛠᛡᛢᛣᛥᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚳᚴᚷᚸᚹᚺᚻᚼᚾᚿᛀ";
         private static readonly string rootDirectory = Path.Combine(RunShowcases.GetDataDir(), "CelticHeart");
         private static readonly string outputDirectory = Path.Combine(rootDirectory, "out");
-        private static readonly string inputDirectory1 = Path.Combine(rootDirectory, "RooftopClouds_out");
+        private static readonly string inputDirectory1 = makeVideo ? Path.Combine(rootDirectory, "RooftopClouds_out") : rootDirectory;
         private static readonly string inputDirectory2 = Path.Combine(rootDirectory, "StarrySky_out");
         private static readonly Color bgColor = Color.Transparent;
         private static readonly Random random = new(0);
@@ -40,6 +40,11 @@ namespace Aspose.Drawing.Showcases
         {
             int w = 1120;
             int h = 900;
+
+            if (!Directory.Exists(outputDirectory))
+            {
+                Directory.CreateDirectory(outputDirectory);
+            }
 
             Bitmap bitmap = new(w, h);
             Graphics g = Graphics.FromImage(bitmap);
@@ -175,7 +180,7 @@ namespace Aspose.Drawing.Showcases
             }
             else
             {
-                frameNumber = 75;
+                frameNumber = 151;
                 for (int i = 0; i < 1; i++)
                 {
                     ShiftRibbonStrings(ribbons);
