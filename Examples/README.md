@@ -27,4 +27,9 @@ For video only:
 + Firstly, run [`prepare.cmd`](Data/Showcases/prepare.cmd) to create some folders and background frames from videofile.
 + Finally, run `make_video.cmd` and `add_sound.cmd` (optionally, if option `makeVideo` is enabled).
 
+Links and copyrights:
++ [`Nakarada.mp3`](Data/Showcases/CelticHeart/Nakarada.mp3): ["Alexander Nakarada - Towards The Horizon"](https://bit.ly/bkc-towards) is under a Creative Commons (CC-BY 3.0) license.
++ [`RooftopClouds.mp4`](Data/Showcases/CelticHeart/RooftopClouds.mp4): ["Rolling Clouds Time Lapse" by Beachfront](https://www.videvo.net/video/rolling-clouds-time-lapse/4180/) is under a Creative Commons (CC-BY 3.0) license.
++ [`StarrySky.mp4`](Data/Showcases/CelticHeart/StarrySky.mp4): ["Starry Night Timelapse" by Beachfront](https://www.videvo.net/video/starry-night-timelapse/3954/) is under a Creative Commons (CC-BY 3.0) license.
+
 [Home](https://www.aspose.com/) | [Product Page](https://products.aspose.com/drawing/net) | [Docs](https://docs.aspose.com/drawing/net/) | [Demos](https://products.aspose.app/drawing/family) | [API Reference](https://apireference.aspose.com/drawing/net) | [Examples](https://github.com/aspose-drawing/Aspose.Drawing-for-.NET/tree/master/Examples) | [Blog](https://blog.aspose.com/category/drawing/) | [Free Support](https://forum.aspose.com/c/drawing) | [Temporary License](https://purchase.aspose.com/temporary-license)
